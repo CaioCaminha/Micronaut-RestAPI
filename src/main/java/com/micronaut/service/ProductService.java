@@ -31,8 +31,8 @@ public class ProductService {
 
 
 
-    public List<Product> getAll(){
-        return products;
+    public HttpResponse<List<Product>> getAll(){
+        return HttpResponse.ok(products);
     }
 
 
@@ -42,5 +42,15 @@ public class ProductService {
         }
         return HttpResponse.badRequest().body(new ResponseError("Error ao buscar product", 400L, "Product not found"));
     }
+
+    public HttpResponse<?> createProduct(Product product){
+        if(product.getId().toString().isEmpty()){
+            product.setId(UUID.fromString("123j1g-324j23-23j4h23-bj23b412"));
+        }
+        products.add(product);
+        return HttpResponse.created(products);
+    }
+
+
 
 }
